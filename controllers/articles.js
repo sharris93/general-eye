@@ -6,7 +6,10 @@ const router = express.Router()
 // ! Routes that render a web page
 // Index - get all articles
 router.get('/articles', async (req, res) => {
-  return res.render('articles/index.ejs')
+  const allArticles = await Article.find()
+  return res.render('articles/index.ejs', {
+    articles: allArticles
+  })
 })
 
 // New - Displays the form that allows us to submit a CREATE request
@@ -21,7 +24,10 @@ router.get('/articles/:articleId/edit', async (req, res) => {
 
 // Show - displays a single article
 router.get('/articles/:articleId', async (req, res) => {
-  return res.render('articles/show.ejs')
+  const article = await Article.findById(req.params.articleId)
+  return res.render('articles/show.ejs', {
+    article: article
+  })
 })
 
 

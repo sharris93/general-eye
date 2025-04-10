@@ -3,9 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Article | General Eye</title>
+  <title><%= article.title %> | General Eye</title>
 </head>
 <body>
-  <h1>Show Article</h1>
+  <a href="/articles">Back to all articles</a>
+  <h1><%= article.title %></h1>
+  <ul class="tags">
+    <% article.tags.forEach(tag => { %>
+      <li><%= tag %></li>
+    <% }); %>
+  </ul>
+  <p><%= article.content %></p>
+
 </body>
 </html>
