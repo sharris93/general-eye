@@ -44,7 +44,8 @@ router.get('/articles/:articleId/edit', async (req, res, next) => {
 
     // If article was found, render the page
     return res.render('articles/edit.ejs', {
-      article
+      article,
+      errorMessage: ''
     })
   } catch (error) {
     console.log(error)
@@ -112,7 +113,10 @@ router.put('/articles/:articleId', async (req, res) => {
 
     return res.redirect(`/articles/${articleId}`)
   } catch (error) {
-    console.log(error)
+    console.log(error.message)
+    return res.render('articles/new.ejs', {
+      errorMessage: error.message
+    })
   }
 })
 
