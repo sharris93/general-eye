@@ -7,5 +7,40 @@
 </head>
 <body>
   <h1>Edit Article</h1>
+
+  <!-- HTML Form -->
+  <form action="/articles/<%= article._id %>?_method=PUT" method="POST">
+
+    <!-- Title -->
+    <div class="input-control">
+      <label for="title">Title</label>
+      <input type="text" name="title" id="title" placeholder="Hello World" value="<%= article.title %>">
+    </div>
+
+    <!-- Content -->
+    <div class="input-control">
+      <label for="content">Article content:</label>
+      <textarea name="content" id="content" rows="10">
+        <%= article.content %>
+      </textarea>
+    </div>
+
+    <!-- Tags -->
+    <div class="input-control">
+      <label for="tags">Tags</label>
+      <select name="tags" id="tags" multiple>
+        <option value="Politics & Government" <%= article.tags.includes('Politics & Government') ? 'selected' : '' %>>Politics & Government</option>
+        <option value="Corporate Shenanigans" <%= article.tags.includes('Corporate Shenanigans') ? 'selected' : '' %>>Corporate Shenanigans</option>
+        <option value="Media & PR Spin" <%= article.tags.includes('Media & PR Spin') ? 'selected' : '' %>>Media & PR Spin</option>
+        <option value="Tech & Silicon Valley" <%= article.tags.includes('Tech & Silicon Valleys') ? 'selected' : '' %>>Tech & Silicon Valley</option>
+        <option value="Health & Wellness" <%= article.tags.includes('Health & Wellness') ? 'selected' : '' %>>Health & Wellness</option>
+        <option value="International Affairs" <%= article.tags.includes('International Affairs') ? 'selected' : '' %>>International Affairs</option>
+      </select>
+    </div>
+
+    <!-- Submit -->
+    <button type="submit">Submit</button>
+
+  </form>
 </body>
 </html>

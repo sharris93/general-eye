@@ -2,6 +2,7 @@ import express from 'express'
 import morgan from 'morgan'
 import mongoose from 'mongoose'
 import 'dotenv/config'
+import methodOverride from 'method-override'
 
 // Routers
 import articlesRouter from './controllers/articles.js'
@@ -12,6 +13,7 @@ const port = process.env.PORT || 3000
 
 
 // ! Middleware
+app.use(methodOverride('_method'))
 app.use(express.urlencoded()) // Similar to express.json(), this middleware instead captures urlencoded body types (forms) on requests and transforms the data onto the req.body key
 app.use(morgan('dev'))
 

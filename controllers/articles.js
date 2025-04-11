@@ -19,7 +19,11 @@ router.get('/articles/new', (req, res) => {
 
 // Edit - Displays the form that allows us to submit an UPDATE request
 router.get('/articles/:articleId/edit', async (req, res) => {
-  return res.render('articles/edit.ejs')
+  const article = await Article.findById(req.params.articleId)
+  console.log(article)
+  return res.render('articles/edit.ejs', {
+    article
+  })
 })
 
 // Show - displays a single article
@@ -45,9 +49,21 @@ router.post('/articles', async (req, res) => {
 })
 
 // Update - allows us to update an existing article
+router.put('/articles/:articleId', async (req, res) => {
+  try {
+    const articleId = req.params.articleId
+    await Article.findByIdAndUpdate(articleId, req.body)
+    return res.redirect(`/articles/${articleId}`)
+  } catch (error) {
+    console.log(error)
+  }
+})
 
 // Delete - allows us to delete an existing article
-
+router.delete('/articles/:articleId', async (req, res) => {
+  await Article.findByIdAndDelete(req.params.articleId)
+  return res.redirect('/articles')
+})
 
 // ! Don't forget to export your router
 export default router
