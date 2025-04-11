@@ -19,17 +19,22 @@ app.use(morgan('dev'))
 app.use(express.static('public'))
 
 // ! Routes
-// ? Defined in server.js
 // Home page
 app.get('/', (req, res) => {
   return res.render('index.ejs')
 })
 
-// ? Defined in dedicated controller files
 // Articles (create, index, show, update, delete)
 app.use('/', articlesRouter)
 
 // Users (register/login/profile)
+
+
+// ! 404 Route
+// This route will catch any GET requests that have not matched any route previously
+app.get('/{*any}', (req, res) => {
+  return res.status(404).render('404.ejs')
+})
 
 
 // ! Listen

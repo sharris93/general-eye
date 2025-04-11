@@ -1,3 +1,17 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+}
+
 body {
-  background-color: red;
+  margin: 0;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.8rem;
 }
