@@ -16,6 +16,7 @@ const port = process.env.PORT || 3000
 app.use(methodOverride('_method'))
 app.use(express.urlencoded()) // Similar to express.json(), this middleware instead captures urlencoded body types (forms) on requests and transforms the data onto the req.body key
 app.use(morgan('dev'))
+app.use(express.static('public'))
 
 // ! Routes
 // ? Defined in server.js
