@@ -5,6 +5,7 @@ import 'dotenv/config'
 import methodOverride from 'method-override'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
+import getUserFromSession from './middleware/getUserFromSession.js'
 
 // Routers
 import articlesRouter from './controllers/articles.js'
@@ -28,6 +29,11 @@ app.use(session({
     mongoUrl: process.env.MONGODB_URI
   })
 }))
+
+// This is our own custom middleware
+// It's going to take the user from the req.session key
+// and make it available to every route that follows this middleware
+app.use(getUserFromSession)
 
 // ! Routes
 // Home page

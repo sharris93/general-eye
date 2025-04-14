@@ -105,6 +105,13 @@ router.post('/auth/sign-in', async (req, res) => {
   }
 })
 
+// ? Sign out user
+router.get('/auth/sign-out', (req, res) => {
+  req.session.destroy(() => {
+    res.redirect('/auth/sign-in')
+  })
+})
+
 
 
 export default router
