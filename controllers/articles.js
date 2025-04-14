@@ -78,8 +78,6 @@ router.get('/articles/:articleId', async (req, res, next) => {
 })
 
 
-
-
 // ! Routes that DO NOT render a web page
 // Create - create a new article
 router.post('/articles', async (req, res) => {

@@ -6,6 +6,7 @@ import methodOverride from 'method-override'
 
 // Routers
 import articlesRouter from './controllers/articles.js'
+import authRouter from './controllers/auth.js'
 
 // ! Variables
 const app = express()
@@ -16,11 +17,12 @@ const port = process.env.PORT || 3000
 app.use(methodOverride('_method'))
 app.use(express.urlencoded()) // Similar to express.json(), this middleware instead captures urlencoded body types (forms) on requests and transforms the data onto the req.body key
 app.use(morgan('dev'))
-app.use(express.static('public'))
+app.use(express.static('public')) // This line serves static files to the client (CSS/JS/Images etc)
 
 // ! Routes
 // Home page
 app.get('/', (req, res) => {
+  req.body
   return res.render('index.ejs')
 })
 
@@ -28,6 +30,7 @@ app.get('/', (req, res) => {
 app.use('/', articlesRouter)
 
 // Users (register/login/profile)
+app.use('/', authRouter)
 
 
 // ! 404 Route
