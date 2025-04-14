@@ -3,6 +3,8 @@ import morgan from 'morgan'
 import mongoose from 'mongoose'
 import 'dotenv/config'
 import methodOverride from 'method-override'
+import session from 'express-session'
+import MongoStore from 'connect-mongo'
 
 // Routers
 import articlesRouter from './controllers/articles.js'
@@ -18,11 +20,18 @@ app.use(methodOverride('_method'))
 app.use(express.urlencoded()) // Similar to express.json(), this middleware instead captures urlencoded body types (forms) on requests and transforms the data onto the req.body key
 app.use(morgan('dev'))
 app.use(express.static('public')) // This line serves static files to the client (CSS/JS/Images etc)
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+  store: MongoStore.create({
+    mongoUrl: process.env.MONGODB_URI
+  })
+}))
 
 // ! Routes
 // Home page
 app.get('/', (req, res) => {
-  req.body
   return res.render('index.ejs')
 })
 

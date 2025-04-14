@@ -6,7 +6,7 @@ const router = express.Router()
 
 // ! Routes
 // Sign up form page
-router.get('/sign-up', (req, res) => {
+router.get('/auth/sign-up', (req, res) => {
   try {
     return res.render('auth/sign-up.ejs', {
       errorMessage: ''
@@ -17,6 +17,15 @@ router.get('/sign-up', (req, res) => {
 })
 
 // Sign in form page
+router.get('/auth/sign-in', (req, res) => {
+  try {
+    return res.render('auth/sign-in.ejs', {
+      errorMessage: ''
+    })
+  } catch (error) {
+    console.log(error)
+  }
+})
 
 
 // ? Create a user
@@ -54,6 +63,48 @@ router.post('/auth/sign-up', async (req, res) => {
     })
   }
 })
+
+// ? Sign in user
+router.post('/auth/sign-in', async (req, res) => {
+  console.log(req.body)
+  try {
+    // We want to locate a user in the database with an email matching the req.body.email (the email passed in the form)
+    const foundUser = await User.findOne({ email: req.body.email })
+
+    // Check if user was found, if not, render the form again with an unauthorized error message
+    if (!foundUser) {
+      console.log('User was not found')
+      return res.status(401).render('auth/sign-in.ejs', {
+        errorMessage: 'Unauthorized'
+      })
+    }
+
+    // Check if the password given when submitting the form matches the password we have on file (check the hash against the provided plain text password)
+    if (!bcrypt.compareSync(req.body.password, foundUser.password)) {
+      // Passwords did not match!
+      console.log('Passwords do not match')
+      return res.status(401).render('auth/sign-in.ejs', {
+        errorMessage: 'Unauthorized'
+      })
+    }
+
+    // Sign the user in by adding the user details to the req.session
+    // A cookie will then be returned to the client in the response
+    // We'll later be able to view this session cookie to identify the user who is authenticated
+
+    req.session.user = {
+      username: foundUser.username,
+      email: foundUser.email,
+      _id: foundUser._id
+    }
+
+    return res.redirect('/articles')
+
+  } catch (error) {
+    console.log(error)
+  }
+})
+
 
 
 export default router
