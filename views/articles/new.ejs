@@ -10,45 +10,47 @@
 
   <%- include('../partials/nav.ejs') %>
 
-  <h1>Create a new article</h1>
+  <main>
+    <h1 class="text-center">Create a new article</h1>
 
-  <!-- HTML Form -->
-  <form action="/articles" method="POST">
+    <!-- HTML Form -->
+    <form class="form" action="/articles" method="POST">
 
-    <!-- Title -->
-    <div class="input-control">
-      <label for="title">Title</label>
-      <input type="text" name="title" id="title" required maxlength="150">
-    </div>
+      <!-- Title -->
+      <div class="input-control">
+        <label for="title">Title</label>
+        <input type="text" name="title" id="title" required maxlength="150">
+      </div>
 
-    <!-- Content -->
-    <div class="input-control">
-      <label for="content">Article content:</label>
-      <textarea name="content" id="content" required></textarea>
-    </div>
+      <!-- Content -->
+      <div class="input-control">
+        <label for="content">Article content:</label>
+        <textarea name="content" id="content" required></textarea>
+      </div>
 
-    <!-- Tags -->
-    <div class="input-control">
-      <label for="tags"></label>
-      <select name="tags" id="tags" multiple required>
-        <option value="Politics & Government">Politics & Government</option>
-        <option value="Corporate Shenanigans">Corporate Shenanigans</option>
-        <option value="Media & PR Spin">Media & PR Spin</option>
-        <option value="Tech & Silicon Valley">Tech & Silicon Valley</option>
-        <option value="Health & Wellness">Health & Wellness</option>
-        <option value="International Affairs">International Affairs</option>
-      </select>
-    </div>
+      <!-- Tags -->
+      <div class="input-control">
+        <label for="tags">Add some tags</label>
+        <select name="tags" id="tags" multiple required>
+          <option value="Politics & Government">Politics & Government</option>
+          <option value="Corporate Shenanigans">Corporate Shenanigans</option>
+          <option value="Media & PR Spin">Media & PR Spin</option>
+          <option value="Tech & Silicon Valley">Tech & Silicon Valley</option>
+          <option value="Health & Wellness">Health & Wellness</option>
+          <option value="International Affairs">International Affairs</option>
+        </select>
+      </div>
 
-    <!-- Error message -->
-    <% if (errorMessage) { %>
-      <p class="error-message"><%= errorMessage %></p>
-    <% } %>
+      <!-- Error message -->
+      <% if (errorMessage) { %>
+        <p class="error-message"><%= errorMessage %></p>
+      <% } %>
 
-    <!-- Submit -->
-    <button type="submit">Submit</button>
+      <!-- Submit -->
+      <button type="submit">Submit</button>
 
-  </form>
+    </form>
+  </main>
 
 </body>
 </html>

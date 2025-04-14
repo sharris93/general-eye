@@ -9,28 +9,30 @@
 <body>
   <%- include('../partials/nav.ejs') %>
   
-  <h1>Sign in to your account</h1>
-  <form action="/auth/sign-in" method="POST">
+  <main>
+    <h1 class="text-center">Sign in to your account</h1>
+    <form class="form" action="/auth/sign-in" method="POST">
 
-    <!-- Email Address -->
-    <div class="input-control">
-      <label for="email">Email</label>
-      <input type="email" name="email" id="email" placeholder="Email Address" required>
-    </div>
+      <!-- Email Address -->
+      <div class="input-control">
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" placeholder="Email Address" required>
+      </div>
 
-    <!-- Password -->
-    <div class="input-control">
-      <label for="password">Password</label>
-      <input type="password" name="password" id="password" placeholder="Password" required>
-    </div>
+      <!-- Password -->
+      <div class="input-control">
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" placeholder="Password" required>
+      </div>
 
-    <!-- Error message -->
-    <% if (errorMessage) { %>
-      <p class="error-message"><%= errorMessage %></p>
-    <% } %>
+      <!-- Error message -->
+      <% if (errorMessage) { %>
+        <p class="error-message"><%= errorMessage %></p>
+      <% } %>
 
-    <!-- Submit -->
-    <button type="submit">Sign in</button>
-  </form>
+      <!-- Submit -->
+      <button type="submit">Sign in</button>
+    </form>
+  </main>
 </body>
 </html>

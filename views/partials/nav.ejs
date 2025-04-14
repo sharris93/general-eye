@@ -1,7 +1,13 @@
-<nav>
-  <a href="/">Home</a>
-  <a href="/articles">Articles</a>
-  <% if (user) { %>
-    <a href="/auth/sign-out">Sign out</a>
-  <% } %>
-</nav>
+<header>
+  <div class="brand-logo">
+    <img src="https://res.cloudinary.com/dg6jhfncj/image/upload/v1744647892/eye-icon-eye-icon-illustration-with-transparent-background-png_tzmtny.png" alt="Image of an eye">
+  </div>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/articles">Articles</a>
+    <a href="/articles/new">Write an article</a>
+    <% if (user) { %>
+      <a href="/auth/sign-out">Sign out</a>
+    <% } %>
+  </nav>
+</header>

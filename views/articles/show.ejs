@@ -4,21 +4,36 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= article.title %> | General Eye</title>
+  <link rel="stylesheet" href="/stylesheets/main.css">
 </head>
 <body>
   <%- include('../partials/nav.ejs') %>
   
-  <a href="/articles">Back to all articles</a>
-  <h1><%= article.title %></h1>
-  <ul class="tags">
-    <% article.tags.forEach(tag => { %>
-      <li><%= tag %></li>
-    <% }); %>
-  </ul>
-  <p><%= article.content %></p>
-  <a href="/articles/<%= article._id %>/edit">Edit</a>
-  <form action="/articles/<%= article._id %>?_method=DELETE" method="POST">
-    <button type="submit">Delete</button>
-  </form>
+  <main class="show-article">
+    <!-- Back to articles link -->
+    <div class="back-to-articles">
+      <a href="/articles">Back to all articles</a>
+    </div>
+
+    <!-- Article details -->
+    <div class="article">
+      <div class="banner-image" style="background-image: url('https://picsum.photos/seed/picsum/1200/200');"></div>
+      <h1><%= article.title %></h1>
+      <ul class="tags">
+        <% article.tags.forEach(tag => { %>
+          <li><%= tag %></li>
+        <% }); %>
+      </ul>
+      <p><%= article.content %></p>
+    </div>
+
+    <!-- Controls (Edit/Delete) -->
+    <div class="controls">
+      <a class="edit-btn" href="/articles/<%= article._id %>/edit">✍️</a>
+      <form action="/articles/<%= article._id %>?_method=DELETE" method="POST">
+        <button class="delete-btn" type="submit">🗑️</button>
+      </form>
+    </div>
+  </main>
 </body>
 </html>

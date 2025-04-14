@@ -9,40 +9,42 @@
 <body>
   <%- include('../partials/nav.ejs') %>
   
-  <h1>Create an account</h1>
-  <form action="/auth/sign-up" method="POST">
+  <main>
+    <h1 class="text-center">Create an account</h1>
+    <form class="form" action="/auth/sign-up" method="POST">
 
-    <!-- Email Address -->
-    <div class="input-control">
-      <label for="email">Email</label>
-      <input type="email" name="email" id="email" placeholder="Email Address" required>
-    </div>
+      <!-- Email Address -->
+      <div class="input-control">
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" placeholder="Email Address" required>
+      </div>
 
-    <!-- Username -->
-    <div class="input-control">
-      <label for="username">Username</label>
-      <input type="text" name="username" id="username" placeholder="Username" required>
-    </div>
+      <!-- Username -->
+      <div class="input-control">
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" placeholder="Username" required>
+      </div>
 
-    <!-- Password -->
-    <div class="input-control">
-      <label for="password">Password</label>
-      <input type="password" name="password" id="password" placeholder="Password" required>
-    </div>
+      <!-- Password -->
+      <div class="input-control">
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" placeholder="Password" required>
+      </div>
 
-    <!-- Password Confirmation -->
-    <div class="input-control">
-      <label for="passwordConfirmation">Confirm password</label>
-      <input type="password" name="passwordConfirmation" id="passwordConfirmation" placeholder="Confirm password" required>
-    </div>
+      <!-- Password Confirmation -->
+      <div class="input-control">
+        <label for="passwordConfirmation">Confirm password</label>
+        <input type="password" name="passwordConfirmation" id="passwordConfirmation" placeholder="Confirm password" required>
+      </div>
 
-    <!-- Error message -->
-    <% if (errorMessage) { %>
-      <p class="error-message"><%= errorMessage %></p>
-    <% } %>
+      <!-- Error message -->
+      <% if (errorMessage) { %>
+        <p class="error-message"><%= errorMessage %></p>
+      <% } %>
 
-    <!-- Submit -->
-    <button type="submit">Sign up</button>
-  </form>
+      <!-- Submit -->
+      <button type="submit">Sign up</button>
+    </form>
+  </main>
 </body>
 </html>
