@@ -43,6 +43,13 @@ router.get('/articles/:articleId/edit', isSignedIn, async (req, res, next) => {
     // If article isn't found, return 404 by running next()
     if (!article) return next()
 
+    // Before rendering the edit form, check the user owns the article
+    if (!article.author.equals(req.session.user._id)) {
+      // The ids DO NOT match, so redirect away
+      return res.redirect(`/articles/${article._id}`)
+    }
+    
+
     // If article was found, render the page
     return res.render('articles/edit.ejs', {
       article,
@@ -65,8 +72,6 @@ router.get('/articles/:articleId', async (req, res, next) => {
 
     // Using the id to find an article
     const article = await Article.findById(req.params.articleId).populate('author')
-
-    console.log(article)
 
     // If findById fails to find a matching article to the id provided, it will return null
     // If it returns null, we want to send a 404, by running next()
@@ -110,6 +115,15 @@ router.put('/articles/:articleId', isSignedIn, async (req, res) => {
     // Validate incoming articleId
     if (!mongoose.isValidObjectId(articleId)){
       return next()
+    }
+
+    const article = await Article.findById(articleId)
+
+    const loggedInUserId = req.session.user._id
+    const articleAuthor = article.author
+
+    if (!articleAuthor.equals(loggedInUserId)){
+      return res.status(403).send('You do not permission to access this resource')
     }
 
     // Attempt to make the update for the article
