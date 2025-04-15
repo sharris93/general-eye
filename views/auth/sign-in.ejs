@@ -10,7 +10,7 @@
   <%- include('../partials/nav.ejs') %>
   
   <main>
-    <h1 class="text-center">Sign in to your account</h1>
+    <h1 class="text-center">Sign in</h1>
     <form class="form" action="/auth/sign-in" method="POST">
 
       <!-- Email Address -->
@@ -32,6 +32,8 @@
 
       <!-- Submit -->
       <button type="submit">Sign in</button>
+      
+      <p class="text-center">Haven't got an account? <a href="/auth/sign-up">Sign up</a></p>
     </form>
   </main>
 </body>

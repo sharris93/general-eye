@@ -12,12 +12,16 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #f1e6d6;
+  background-color: #f4efe7;
 }
 
 /* Generic styles */
 h1, h2, h3, h4, h5, h6 {
   margin: 0 0 1rem 0;
+}
+
+a {
+  color: #000;
 }
 
 main {
@@ -72,6 +76,25 @@ header nav a:hover {
 
 
 /* Show page */
+.show-article .top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.show-article .controls {
+  display: flex;
+  align-items: center;
+}
+
+.show-article .controls .delete-btn {
+  margin-left: 5px;
+}
+
+.delete-btn, .edit-btn {
+  font-size: 1.35rem;
+}
+
 .show-article .back-to-articles a {
   /* text-align: center; */
   color: #000;
@@ -105,7 +128,7 @@ header nav a:hover {
   background-color: #000;
   color: #fff;
   border-color: #fff;
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 
@@ -113,6 +136,8 @@ header nav a:hover {
 .error-message {
   color: red;
   font-size: 0.8rem;
+  margin-top: 0;
+  text-align: center;
 }
 
 .form {
@@ -162,6 +187,14 @@ button[type="submit"]:not(.delete-btn) {
   padding: 0;
   margin: 0;
   cursor: pointer;
+}
+
+.cancel {
+  margin-top: 1rem;
+}
+
+.cancel a {
+  color: #000;
 }
 
 

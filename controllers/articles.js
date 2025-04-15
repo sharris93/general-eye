@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 import express from 'express'
 import Article from '../models/Article.js'
+import isSignedIn from '../middleware/isSignedIn.js'
 
 const router = express.Router()
 
@@ -18,7 +19,7 @@ router.get('/articles', async (req, res) => {
 })
 
 // New - Displays the form that allows us to submit a CREATE request
-router.get('/articles/new', (req, res) => {
+router.get('/articles/new', isSignedIn, (req, res) => {
   try {
     return res.render('articles/new.ejs', {
       errorMessage: ''
@@ -29,7 +30,7 @@ router.get('/articles/new', (req, res) => {
 })
 
 // Edit - Displays the form that allows us to submit an UPDATE request
-router.get('/articles/:articleId/edit', async (req, res, next) => {
+router.get('/articles/:articleId/edit', isSignedIn, async (req, res, next) => {
   try {
     // Validate incoming articleId
     if (!mongoose.isValidObjectId(req.params.articleId)){

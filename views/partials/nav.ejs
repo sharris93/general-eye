@@ -1,13 +1,16 @@
 <header>
   <div class="brand-logo">
-    <img src="https://res.cloudinary.com/dg6jhfncj/image/upload/v1744647892/eye-icon-eye-icon-illustration-with-transparent-background-png_tzmtny.png" alt="Image of an eye">
+    <a href="/">
+      <img src="https://res.cloudinary.com/dg6jhfncj/image/upload/v1744647892/eye-icon-eye-icon-illustration-with-transparent-background-png_tzmtny.png" alt="Image of an eye">
+    </a>
   </div>
   <nav>
-    <a href="/">Home</a>
     <a href="/articles">Articles</a>
-    <a href="/articles/new">Write an article</a>
     <% if (user) { %>
+      <a href="/articles/new">Write an article</a>
       <a href="/auth/sign-out">Sign out</a>
+    <% } else { %>
+      <a href="/auth/sign-in">Sign in</a>
     <% } %>
   </nav>
 </header>

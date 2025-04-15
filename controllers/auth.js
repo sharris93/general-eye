@@ -1,12 +1,13 @@
 import express from 'express'
 import User from '../models/User.js'
 import bcrypt from 'bcryptjs'
+import isSignedOut from '../middleware/isSignedOut.js'
 
 const router = express.Router()
 
 // ! Routes
 // Sign up form page
-router.get('/auth/sign-up', (req, res) => {
+router.get('/auth/sign-up', isSignedOut, (req, res) => {
   try {
     return res.render('auth/sign-up.ejs', {
       errorMessage: ''
@@ -17,7 +18,7 @@ router.get('/auth/sign-up', (req, res) => {
 })
 
 // Sign in form page
-router.get('/auth/sign-in', (req, res) => {
+router.get('/auth/sign-in', isSignedOut, (req, res) => {
   try {
     return res.render('auth/sign-in.ejs', {
       errorMessage: ''
@@ -98,7 +99,10 @@ router.post('/auth/sign-in', async (req, res) => {
       _id: foundUser._id
     }
 
-    return res.redirect('/articles')
+    req.session.save(() => {
+      return res.redirect('/articles')
+    })
+
 
   } catch (error) {
     console.log(error)

@@ -10,9 +10,19 @@
   <%- include('../partials/nav.ejs') %>
   
   <main class="show-article">
-    <!-- Back to articles link -->
-    <div class="back-to-articles">
-      <a href="/articles">Back to all articles</a>
+    <div class="top-bar">
+      <!-- Back to articles link -->
+      <div class="back-to-articles">
+        <a href="/articles">Back to all articles</a>
+      </div>
+
+      <!-- Controls (Edit/Delete) -->
+      <div class="controls">
+        <a class="edit-btn" href="/articles/<%= article._id %>/edit">✍️</a>
+        <form action="/articles/<%= article._id %>?_method=DELETE" method="POST">
+          <button class="delete-btn" type="submit">🗑️</button>
+        </form>
+      </div>
     </div>
 
     <!-- Article details -->
@@ -27,13 +37,7 @@
       <p><%= article.content %></p>
     </div>
 
-    <!-- Controls (Edit/Delete) -->
-    <div class="controls">
-      <a class="edit-btn" href="/articles/<%= article._id %>/edit">✍️</a>
-      <form action="/articles/<%= article._id %>?_method=DELETE" method="POST">
-        <button class="delete-btn" type="submit">🗑️</button>
-      </form>
-    </div>
+    
   </main>
 </body>
 </html>
