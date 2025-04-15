@@ -2,6 +2,7 @@ import express from 'express'
 import User from '../models/User.js'
 import bcrypt from 'bcryptjs'
 import isSignedOut from '../middleware/isSignedOut.js'
+import isSignedIn from '../middleware/isSignedIn.js'
 
 const router = express.Router()
 
@@ -31,7 +32,7 @@ router.get('/auth/sign-in', isSignedOut, (req, res) => {
 
 // ? Create a user
 // POST /auth/sign-up
-router.post('/auth/sign-up', async (req, res) => {
+router.post('/auth/sign-up', isSignedOut, async (req, res) => {
   try {
     // Check passwords match, if not send error response
     if (req.body.password !== req.body.passwordConfirmation) {
@@ -66,7 +67,7 @@ router.post('/auth/sign-up', async (req, res) => {
 })
 
 // ? Sign in user
-router.post('/auth/sign-in', async (req, res) => {
+router.post('/auth/sign-in', isSignedOut, async (req, res) => {
   console.log(req.body)
   try {
     // We want to locate a user in the database with an email matching the req.body.email (the email passed in the form)

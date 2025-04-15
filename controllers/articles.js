@@ -64,7 +64,9 @@ router.get('/articles/:articleId', async (req, res, next) => {
     }
 
     // Using the id to find an article
-    const article = await Article.findById(req.params.articleId)
+    const article = await Article.findById(req.params.articleId).populate('author')
+
+    console.log(article)
 
     // If findById fails to find a matching article to the id provided, it will return null
     // If it returns null, we want to send a 404, by running next()
@@ -81,8 +83,15 @@ router.get('/articles/:articleId', async (req, res, next) => {
 
 // ! Routes that DO NOT render a web page
 // Create - create a new article
-router.post('/articles', async (req, res) => {
+router.post('/articles', isSignedIn, async (req, res) => {
   try {
+
+    // Before attempting to create the new article, we'll ensure the req.body has an author key
+    // The author key should hold the _id of the user who made the request
+    // We use req.session.user to find that _id
+    req.body.author = req.session.user._id
+
+
     const newArticle = await Article.create(req.body)
     return res.redirect(`/articles/${newArticle._id}`)
   } catch (error) {
@@ -94,7 +103,7 @@ router.post('/articles', async (req, res) => {
 })
 
 // Update - allows us to update an existing article
-router.put('/articles/:articleId', async (req, res) => {
+router.put('/articles/:articleId', isSignedIn, async (req, res) => {
   try {
     const articleId = req.params.articleId
 
@@ -120,7 +129,7 @@ router.put('/articles/:articleId', async (req, res) => {
 })
 
 // Delete - allows us to delete an existing article
-router.delete('/articles/:articleId', async (req, res) => {
+router.delete('/articles/:articleId', isSignedIn, async (req, res) => {
   try {
     if (!mongoose.isValidObjectId(req.params.articleId)){
       return next()

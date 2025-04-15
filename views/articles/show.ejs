@@ -29,6 +29,7 @@
     <div class="article">
       <div class="banner-image" style="background-image: url('https://picsum.photos/seed/picsum/1200/200');"></div>
       <h1><%= article.title %></h1>
+      <p>Written by <%= article.author.username %></p>
       <ul class="tags">
         <% article.tags.forEach(tag => { %>
           <li><%= tag %></li>
