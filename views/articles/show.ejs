@@ -37,6 +37,22 @@
           <li><%= tag %></li>
         <% }); %>
       </ul>
+
+      <!-- Like button -->
+      <div class="interactions">
+        <small><%= article.likes.length %></small>
+        <% if(article.likes.find(likedById => likedById.equals(user._id))) { %>
+          <form action="/articles/<%= article._id %>/like?_method=DELETE" method="POST">
+            <button class="like-btn" type="submit">Unlike</button>
+          </form>
+        <% } else { %>
+          <form action="/articles/<%= article._id %>/like" method="POST">
+            <button class="like-btn" type="submit">Like</button>
+          </form>
+        <% } %>
+      </div>
+
+      <!-- Article content -->
       <p><%= article.content %></p>
     </div>
 
@@ -44,11 +60,22 @@
     <div class="comment-section">
       <div class="comments">
         <h2>Comments</h2>
-        <% article.comments.reverse().forEach(article => { %>
+        <% if (article.comments.length === 0) { %>
+          <p>Be the first to leave a comment</p>  
+        <% } %>
+        <% article.comments.reverse().forEach(comment => { %>
           <div class="comment">
-            <h3><%= article.author.username %></h3>
-            <p><%= new Date(article.createdAt).toString() %></p>
-            <p><%= article.content %></p>
+            <div class="top-bar">
+              <h3><%= comment.author.username %></h3>
+              <!-- Delete comment -->
+              <% if(comment.author.equals(user._id)) { %>
+                <form action="/articles/<%= article._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+                  <button class="delete-btn" type="submit">🗑️</button>
+                </form>
+              <% } %>
+            </div>
+            <small><%= new Date(comment.createdAt).toString() %></small>
+            <p><%= comment.content %></p>
           </div>
         <% }) %>
       </div>

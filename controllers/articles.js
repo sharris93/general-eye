@@ -154,5 +154,53 @@ router.delete('/articles/:articleId', isSignedIn, async (req, res) => {
   }
 })
 
+
+// ! Liking an article
+router.post('/articles/:articleId/like', isSignedIn, async (req, res, next) => {
+  try {
+    // Find article to like
+    const article = await Article.findById(req.params.articleId)
+
+    const alreadyLiked = article.likes.find(userId => userId.equals(req.session.user._id))
+
+    // Add user id into likes array
+    if (!alreadyLiked) {
+      article.likes.push(req.session.user._id)
+    }
+
+    // Save to the database
+    await article.save()
+
+    // Redirect to same page
+    return res.redirect(`/articles/${article._id}`)
+  } catch (error) {
+    console.log(error)
+  }
+})
+
+// ! Unliking an article
+router.delete('/articles/:articleId/like', isSignedIn, async (req, res, next) => {
+  try {
+    // Find article to like
+    const article = await Article.findById(req.params.articleId)
+
+    // Check if the user has already liked the article
+    const alreadyLiked = article.likes.find(userId => userId.equals(req.session.user._id))
+
+    // If the user has already liked the article (we found the user's id in the array)
+    if (alreadyLiked) {
+      article.likes.pull(req.session.user._id)
+    }
+
+    // Save to the database
+    await article.save()
+
+    // Redirect to same page
+    return res.redirect(`/articles/${article._id}`)
+  } catch (error) {
+    console.log(error)
+  }
+})
+
 // ! Don't forget to export your router
 export default router

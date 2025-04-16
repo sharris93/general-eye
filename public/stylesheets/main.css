@@ -91,7 +91,7 @@ header nav a:hover {
   margin-left: 5px;
 }
 
-.delete-btn, .edit-btn {
+.delete-btn, .edit-btn, .like-btn {
   font-size: 1.35rem;
 }
 
@@ -167,7 +167,7 @@ textarea {
   height: 120px;
 }
 
-button[type="submit"]:not(.delete-btn) {
+button[type="submit"]:not(.delete-btn):not(.like-btn) {
   display: block;
   border: 1px solid #000;
   background: #000;
@@ -222,6 +222,20 @@ button[type="submit"]:not(.delete-btn) {
 .articles article h2 {
   font-size: 1em;
 }
+
+/* Comments */
+.comment {
+  margin-bottom: 1em;
+  background-color: #f0f0f0;
+  padding: .5em;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.comment .delete-btn {
+  font-size: 1rem;
+}
+
+/* Responsive */
 
 @media (min-width: 576px) {
   .articles {

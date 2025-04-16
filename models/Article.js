@@ -14,7 +14,8 @@ const articleSchema = new mongoose.Schema({
   content: { type: String, required: true },
   tags: [String],
   author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-  comments: [commentSchema]
+  comments: [commentSchema],
+  likes: [{ type: Schema.Types.ObjectId, ref: 'User', required: true }]
 }, {
   timestamps: true
 })

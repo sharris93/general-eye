@@ -29,6 +29,32 @@ router.post('/articles/:articleId/comments', isSignedIn, async (req, res, next) 
   }
 })
 
+// Delete route
+router.delete('/articles/:articleId/comments/:commentId', isSignedIn, async (req, res, next) => {
+  try {
+    // Find the parent document first
+    const article = await Article.findById(req.params.articleId)
+    if (!article) return next()
+
+    // Find the child (subdocument) we want to delete
+    const comment = article.comments.id(req.params.commentId)
+    
+    if(!comment.author.equals(req.session.user._id)) return res.status(403).send('You do not have permission to access this resource')
+
+    // Delete the comment
+    comment.deleteOne()
+
+    // Save the parent document to persist this change to the database
+    await article.save()
+
+    // Redirect back to the same page
+    return res.redirect(`/articles/${article._id}`)
+
+  } catch (error) {
+    console.log(error)
+  }
+})
+
 
 
 
