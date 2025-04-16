@@ -1,4 +1,4 @@
-function getUserFromSession(req, res, next){
+function passUserToView(req, res, next){
   // Add the req.session.user to every locals object under the key "user"
   res.locals.user = req.session.user
 
@@ -6,4 +6,4 @@ function getUserFromSession(req, res, next){
   return next()
 }
 
-export default getUserFromSession
+export default passUserToView

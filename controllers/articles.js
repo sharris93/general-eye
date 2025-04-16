@@ -21,9 +21,7 @@ router.get('/articles', async (req, res) => {
 // New - Displays the form that allows us to submit a CREATE request
 router.get('/articles/new', isSignedIn, (req, res) => {
   try {
-    return res.render('articles/new.ejs', {
-      errorMessage: ''
-    })
+    return res.render('articles/new.ejs')
   } catch (error) {
     console.log(error)
   }
@@ -52,8 +50,7 @@ router.get('/articles/:articleId/edit', isSignedIn, async (req, res, next) => {
 
     // If article was found, render the page
     return res.render('articles/edit.ejs', {
-      article,
-      errorMessage: ''
+      article
     })
   } catch (error) {
     console.log(error)
@@ -71,11 +68,13 @@ router.get('/articles/:articleId', async (req, res, next) => {
     }
 
     // Using the id to find an article
-    const article = await Article.findById(req.params.articleId).populate('author')
+    const article = await Article.findById(req.params.articleId).populate(['author', 'comments.author'])
 
     // If findById fails to find a matching article to the id provided, it will return null
     // If it returns null, we want to send a 404, by running next()
     if (!article) return next()
+
+      console.log(article)
 
     return res.render('articles/show.ejs', {
       article: article

@@ -5,11 +5,13 @@ import 'dotenv/config'
 import methodOverride from 'method-override'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
-import getUserFromSession from './middleware/getUserFromSession.js'
+import passUserToView from './middleware/passUserToView.js'
+import passErrorToView from './middleware/passErrorToView.js'
 
 // Routers
 import articlesRouter from './controllers/articles.js'
 import authRouter from './controllers/auth.js'
+import commentRouter from './controllers/comments.js'
 
 // ! Variables
 const app = express()
@@ -33,7 +35,8 @@ app.use(session({
 // This is our own custom middleware
 // It's going to take the user from the req.session key
 // and make it available to every route that follows this middleware
-app.use(getUserFromSession)
+app.use(passUserToView)
+app.use(passErrorToView)
 
 // ! Routes
 // Home page
@@ -43,6 +46,9 @@ app.get('/', (req, res) => {
 
 // Articles (create, index, show, update, delete)
 app.use('/', articlesRouter)
+
+// Comments (create, update, delete)
+app.use('/', commentRouter)
 
 // Users (register/login/profile)
 app.use('/', authRouter)

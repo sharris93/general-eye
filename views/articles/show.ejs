@@ -40,6 +40,30 @@
       <p><%= article.content %></p>
     </div>
 
+    <!-- Comment section -->
+    <div class="comment-section">
+      <div class="comments">
+        <h2>Comments</h2>
+        <% article.comments.reverse().forEach(article => { %>
+          <div class="comment">
+            <h3><%= article.author.username %></h3>
+            <p><%= new Date(article.createdAt).toString() %></p>
+            <p><%= article.content %></p>
+          </div>
+        <% }) %>
+      </div>
+
+      <form action="/articles/<%= article._id %>/comments" method="POST">
+        <h2>Leave a comment</h2>
+        <label hidden for="content">Content</label>
+        <textarea name="content" id="content"></textarea>
+        <% if (errorMessage) { %>
+          <p class="error-message"><%= errorMessage %></p>
+        <% } %>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+    
     
   </main>
 </body>
