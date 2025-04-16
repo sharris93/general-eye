@@ -2,7 +2,7 @@ import express from 'express'
 import User from '../models/User.js'
 import bcrypt from 'bcryptjs'
 import isSignedOut from '../middleware/isSignedOut.js'
-import isSignedIn from '../middleware/isSignedIn.js'
+import parser from '../middleware/parser.js'
 
 const router = express.Router()
 
@@ -32,8 +32,10 @@ router.get('/auth/sign-in', isSignedOut, (req, res) => {
 
 // ? Create a user
 // POST /auth/sign-up
-router.post('/auth/sign-up', isSignedOut, async (req, res) => {
+router.post('/auth/sign-up', isSignedOut, parser.single('profileImage'), async (req, res) => {
   try {
+    req.body.profileImage = req.file.path
+
     // Check passwords match, if not send error response
     if (req.body.password !== req.body.passwordConfirmation) {
       return res.status(422).render('auth/sign-up.ejs', {
@@ -97,7 +99,8 @@ router.post('/auth/sign-in', isSignedOut, async (req, res) => {
     req.session.user = {
       username: foundUser.username,
       email: foundUser.email,
-      _id: foundUser._id
+      _id: foundUser._id,
+      profileImage: foundUser.profileImage
     }
 
     req.session.save(() => {

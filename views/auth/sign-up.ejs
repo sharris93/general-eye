@@ -11,7 +11,7 @@
   
   <main>
     <h1 class="text-center">Create an account</h1>
-    <form class="form" action="/auth/sign-up" method="POST">
+    <form class="form" action="/auth/sign-up" method="POST" enctype="multipart/form-data">
 
       <!-- Email Address -->
       <div class="input-control">
@@ -35,6 +35,12 @@
       <div class="input-control">
         <label for="passwordConfirmation">Confirm password</label>
         <input type="password" name="passwordConfirmation" id="passwordConfirmation" placeholder="Confirm password" required>
+      </div>
+
+      <!-- Profile Image -->
+      <div class="input-control">
+        <label for="profileImage">Profile Image</label>
+        <input type="file" name="profileImage" id="profileImage" accept="image/*">
       </div>
 
       <!-- Error message -->

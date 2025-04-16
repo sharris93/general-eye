@@ -11,6 +11,7 @@ import passErrorToView from './middleware/passErrorToView.js'
 // Routers
 import articlesRouter from './controllers/articles.js'
 import authRouter from './controllers/auth.js'
+import userRouter from './controllers/users.js'
 import commentRouter from './controllers/comments.js'
 
 // ! Variables
@@ -52,6 +53,7 @@ app.use('/', commentRouter)
 
 // Users (register/login/profile)
 app.use('/', authRouter)
+app.use('/', userRouter)
 
 
 // ! 404 Route

@@ -158,6 +158,10 @@ router.delete('/articles/:articleId', isSignedIn, async (req, res) => {
 // ! Liking an article
 router.post('/articles/:articleId/like', isSignedIn, async (req, res, next) => {
   try {
+    if (!mongoose.isValidObjectId(req.params.articleId)){
+      return next()
+    }
+
     // Find article to like
     const article = await Article.findById(req.params.articleId)
 
@@ -181,6 +185,10 @@ router.post('/articles/:articleId/like', isSignedIn, async (req, res, next) => {
 // ! Unliking an article
 router.delete('/articles/:articleId/like', isSignedIn, async (req, res, next) => {
   try {
+    if (!mongoose.isValidObjectId(req.params.articleId)){
+      return next()
+    }
+    
     // Find article to like
     const article = await Article.findById(req.params.articleId)
 

@@ -9,6 +9,11 @@ const router = express.Router()
 // Create route
 router.post('/articles/:articleId/comments', isSignedIn, async (req, res, next) => {
   try {
+    // Check article id in valid format, 404 if not
+    if (!mongoose.isValidObjectId(req.params.articleId)){
+      return next()
+    }
+    
     // Add author to body of request
     req.body.author = req.session.user._id
 
@@ -32,9 +37,19 @@ router.post('/articles/:articleId/comments', isSignedIn, async (req, res, next) 
 // Delete route
 router.delete('/articles/:articleId/comments/:commentId', isSignedIn, async (req, res, next) => {
   try {
+    // Check articleId is valid in format, 404 if not
+    if (!mongoose.isValidObjectId(req.params.articleId)){
+      return next()
+    }
+
     // Find the parent document first
     const article = await Article.findById(req.params.articleId)
     if (!article) return next()
+
+    // Check if the commentId is a valid format, return 404 if not (as no comment will be found) 
+    if (!mongoose.isValidObjectId(req.params.commentId)){
+      return next()
+    }
 
     // Find the child (subdocument) we want to delete
     const comment = article.comments.id(req.params.commentId)
