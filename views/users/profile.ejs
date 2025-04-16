@@ -8,9 +8,39 @@
 </head>
 <body>
   <%- include('../partials/nav.ejs') %>
-  <h1>Profile</h1>
-  <h2><%= user.username %></h2>
-  <img src="<%= user.profileImage %>" alt="<%= user.username %>'s profile image">
+  
+  <main class="profile">
+    <img src="<%= user.profileImage %>" alt="<%= user.username %>'s profile image">
+    <h1 class="text-center"><%= user.username %></h1>
+
+    <!-- Authored articles -->
+    <section>
+      <h2>Authored Articles</h2>
+      <ul>
+        <% authoredArticles.forEach(article => { %>
+          <li>
+            <a href="/articles/<%= article._id %>">
+              <%= article.title %>
+            </a>
+          </li>
+        <% }) %>
+      </ul>
+    </section>
+
+    <!-- Liked articles -->
+    <section>
+      <h2>Liked Articles</h2>
+      <ul>
+        <% likedArticles.forEach(article => { %>
+          <li>
+            <a href="/articles/<%= article._id %>">
+              <%= article.title %>
+            </a>
+          </li>
+        <% }) %>
+      </ul>
+    </section>
+  </main>
 
 </body>
 </html>

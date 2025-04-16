@@ -40,16 +40,16 @@
 
       <!-- Like button -->
       <div class="interactions">
-        <small><%= article.likes.length %></small>
         <% if(article.likes.find(likedById => likedById.equals(user._id))) { %>
           <form action="/articles/<%= article._id %>/like?_method=DELETE" method="POST">
-            <button class="like-btn" type="submit">Unlike</button>
+            <button class="like-btn" type="submit"><img src="https://res.cloudinary.com/dg6jhfncj/image/upload/v1744813736/general_eye_static/heart_x7klrd.png" alt="image of a red heart"></button>
           </form>
         <% } else { %>
           <form action="/articles/<%= article._id %>/like" method="POST">
-            <button class="like-btn" type="submit">Like</button>
+            <button class="like-btn" type="submit"><img src="https://res.cloudinary.com/dg6jhfncj/image/upload/v1744813738/general_eye_static/like_rwgqyl.png" alt="outline of a heart"></button>
           </form>
         <% } %>
+        <span>liked by <%= article.likes.length %> user<%= article.likes.length === 1 ? '' : 's'%></span>
       </div>
 
       <!-- Article content -->
