@@ -20,7 +20,7 @@ const app = express()
 
 // ! Middleware
 app.use(methodOverride('_method'))
-// app.use(express.urlencoded()) // Similar to express.json(), this middleware instead captures urlencoded body types (forms) on requests and transforms the data onto the req.body key
+app.use(express.urlencoded({ extended: true })) // Similar to express.json(), this middleware instead captures urlencoded body types (forms) on requests and transforms the data onto the req.body key
 app.use(morgan('dev'))
 app.use(express.static('public')) // This line serves static files to the client (CSS/JS/Images etc)
 app.use(session({
@@ -45,14 +45,14 @@ app.get('/', (req, res) => {
 })
 
 // Articles (create, index, show, update, delete)
-app.use('/', express.urlencoded(), articlesRouter)
+app.use('/', articlesRouter)
 
 // Comments (create, update, delete)
-app.use('/', express.urlencoded(), commentRouter)
+app.use('/', commentRouter)
 
 // Users (register/login/profile)
-app.use('/', express.urlencoded(), authRouter)
-app.use('/', express.urlencoded(), userRouter)
+app.use('/', authRouter)
+app.use('/', userRouter)
 
 
 // ! 404 Route
