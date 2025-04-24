@@ -8,6 +8,7 @@ import session from 'express-session'
 import MongoStore from 'connect-mongo'
 import passUserToView from '../../middleware/passUserToView.js'
 import passErrorToView from '../../middleware/passErrorToView.js'
+import bodyParser from '../../middleware/bodyParser.js'
 
 // Routers
 import articlesRouter from '../../controllers/articles.js'
@@ -20,7 +21,7 @@ const app = express()
 
 // ! Middleware
 app.use(methodOverride('_method'))
-app.use(express.urlencoded({ extended: true })) // Similar to express.json(), this middleware instead captures urlencoded body types (forms) on requests and transforms the data onto the req.body key
+app.use(bodyParser) // Similar to express.json(), this middleware instead captures urlencoded body types (forms) on requests and transforms the data onto the req.body key
 app.use(morgan('dev'))
 app.use(express.static('public')) // This line serves static files to the client (CSS/JS/Images etc)
 app.use(session({
