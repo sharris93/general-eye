@@ -23,7 +23,12 @@ const port = process.env.PORT || 3000
 // ! Middleware
 app.use(methodOverride('_method'))
 app.use(bodyParser) // Similar to express.json(), this middleware instead captures urlencoded body types (forms) on requests and transforms the data onto the req.body key
-app.use(morgan('dev'))
+// app.use(morgan('dev'))
+app.use((req, res, next) => {
+  console.log(`${req.method} - ${req.url}`)
+  console.log(req.body)
+  next()
+})
 app.use(express.static('public')) // This line serves static files to the client (CSS/JS/Images etc)
 app.use(session({
   secret: process.env.SESSION_SECRET,
